@@ -18,7 +18,8 @@ public class Sort {
         return operations + quicksort(array, start, pivotIndex -1) + quicksort(array, pivotIndex+1, end);
     }
 
-    public static void bubble(int[] array){
+    public static SortState bubble(int[] array){
+        SortState sortState = new SortState(array);
         System.out.println("Starting Bubblesort");
         int operations = 0;
         while (true){
@@ -29,6 +30,7 @@ public class Sort {
                     int curr = array[i];
                     array[i] = array[i + 1];
                     array[i + 1] = curr;
+                    sortState.switchPlaces(i, i + 1);
                 }
                 operations++;
             }
@@ -36,6 +38,7 @@ public class Sort {
         }
         System.out.println("needed operations for "+array.length + " integers: "+ operations);
         System.out.println(operations/array.length+ " operations per int");
+        return sortState;
     }
 
     public static void selection(int[] array){

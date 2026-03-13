@@ -1,11 +1,11 @@
 package algorithms;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 public class SortState {
     int[] array;
-    LinkedList <SortingStep> list = new LinkedList<>();
+    int currentIndex = 0;
+    ArrayList<SortingStep> list = new ArrayList<>();
     public SortState(int[] array) {
         this.array = new int[array.length];
         System.arraycopy(array, 0, this.array, 0, array.length);
@@ -14,10 +14,49 @@ public class SortState {
         list.add(new SortingStep(array, "switch", index1, index2));
     }
     public void stepForward(){
-        //move forward
+        if (currentIndex == list.size()) return;
+        list.get(currentIndex).stepForward();
+
+        currentIndex++;
     }
     public void stepBack(){
-        //move back
+        if (currentIndex == 0) return;
+        currentIndex--;
+        list.get(currentIndex).stepBack();
+    }
+    public void stepTo(int index){
+
+        while (currentIndex != index){
+            if (currentIndex > index){
+                stepBack();
+            }else{
+                stepForward();
+            }
+        }
+
+
+    }
+    public void printSorting(){
+        while(currentIndex < list.size()){
+            printArray();
+            stepForward();
+        }
+
+    }
+    public void printArray(){
+        for(int i = 0; i < array.length; i++){
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
+    }
+    public int getSteps(){
+        return list.size();
+    }
+    public int getCurrentIndex(){
+        return currentIndex;
+    }
+    public int[] getArray(){
+        return array;
     }
     private class SortingStep{
         String type;
@@ -50,4 +89,5 @@ public class SortState {
             array[index2] = value1;
         }
     }
+
 }
