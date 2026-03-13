@@ -41,7 +41,9 @@ public class Sort {
         return sortState;
     }
 
-    public static void selection(int[] array){
+    public static SortState selection(int[] array){
+        SortState sortState = new SortState(array);
+
         System.out.println("Starting Selectionsort");
         int operations = 0;
         for (int i = 0; i < array.length - 1; i++) {
@@ -58,9 +60,12 @@ public class Sort {
         }
         System.out.println("needed operations for "+array.length + " integers: "+ operations);
         System.out.println(operations/array.length+ " operations per int");
+        return sortState;
     }
 
-    public static void insertion(int[] array){
+    public static SortState insertion(int[] array){
+        SortState sortState = new SortState(array);
+
         System.out.println("Starting Insertionsort");
         int operations = 0;
         for (int i = 1; i < array.length; i++) {
@@ -79,6 +84,7 @@ public class Sort {
         }
         System.out.println("needed operations for "+array.length + " integers: "+ operations);
         System.out.println(operations/array.length+ " operations per int");
+        return sortState;
     }
 
     public static int[] getTestArray(int n){
